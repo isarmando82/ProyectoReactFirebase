@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import db from "../../Services/firebaseConfig";
@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import { CartContext } from "../../Context/CartContext";
 
 const CheckoutPage = () => {
-  const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
 
   // Obtén la función clearCart del contexto
@@ -17,7 +16,6 @@ const CheckoutPage = () => {
     try {
       const ordersCollection = collection(db, "orders");
       const docRef = await addDoc(ordersCollection, order);
-      setOrderId(docRef.id);
 
       Swal.fire({
         icon: "success",

@@ -1,6 +1,6 @@
 .nn {
     text-decoration: none;
-    color: black;
+    color: black;  
 }
 
 .cent {
@@ -15,15 +15,12 @@
     justify-content: space-around;    
 }
 
-.rounded-button {
-    border-radius: 20px; 
-    padding: 10px 20px; 
-    font-size: 16px; 
-    
-  }
-
 .m {
     margin: 100px;
     margin-left: 1000px;
     
+}
+
+.l {
+    border-radius: 15px;
 }

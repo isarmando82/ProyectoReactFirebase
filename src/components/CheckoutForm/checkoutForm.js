@@ -32,20 +32,20 @@ const CheckoutForm = ({ onCheckout }) => {
 
   return (
     <div>
-      <form>
+      <form className='m-4'>
         <div>
-          <label>Apellido y Nombre:</label>
+          <label>Nombre y Apellido:</label>
           <input type="text" value={name} onChange={handleNameChange} />
         </div>
         <div>
-          <label>Phone Number:</label>
+          <label>Numero de Celular:</label>
           <input type="text" value={phoneNumber} onChange={handlePhoneNumberChange} />
         </div>
         <div>
-          <label>Email:</label>
+          <label>Correo Electronico:</label>
           <input type="email" value={email} onChange={handleEmailChange} />
         </div>
-        <button type="button" className='' onClick={handleCheckout}>Realizar Compra</button>
+        <button type="button" className='m-4 p-3' onClick={handleCheckout}>Realizar Compra</button>
       </form>
     </div>
   );

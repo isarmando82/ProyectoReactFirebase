@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './CartItem.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CartContext } from '../Context/CartContext';
+import { CartContext } from '../../Context/CartContext';
 
 
 const CartItem = ({ id, title, quantity, price }) => {

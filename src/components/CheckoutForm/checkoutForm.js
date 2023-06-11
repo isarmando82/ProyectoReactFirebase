@@ -45,7 +45,7 @@ const CheckoutForm = ({ onCheckout }) => {
           <label className='m-3' >Correo Electronico:</label>
           <input type="email" value={email} required onChange={handleEmailChange} />
         </div>
-        <button type="button" className='m-4 p-3' onClick={handleCheckout}>Realizar Compra</button>
+        <button type="button" className='m-4 p-3 rounded' onClick={handleCheckout}>Realizar Compra</button>
       </form>
     </div>
   );

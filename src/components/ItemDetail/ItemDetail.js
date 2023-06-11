@@ -16,11 +16,17 @@ const ItemDetail = ({ data }) => {
     const item = {
       id, img, title, description, stock, price
     };
-    addItem(item, quantity);
+
+   
+    if (quantity <= stock) {
+      addItem(item, quantity);
+    } else {
+      alert("No hay suficiente stock disponible");
+    }
   };
 
   if (!data) {
-    return null; // O muestra un mensaje de carga mientras se obtiene la información
+    return null; 
   }
 
   return (
@@ -48,4 +54,5 @@ const ItemDetail = ({ data }) => {
 };
 
 export default ItemDetail;
+
 

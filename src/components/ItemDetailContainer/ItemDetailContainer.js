@@ -28,7 +28,7 @@ export const ItemDetailContainer = () => {
   }, [itemId]);
 
   if (!data) {
-    return null; // Devuelve null mientras los datos se están cargando
+    return null; 
   }
 
   return <ItemDetail data={data} />;

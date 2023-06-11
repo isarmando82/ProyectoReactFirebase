@@ -32,7 +32,7 @@ const CheckoutPage = () => {
 
   return (
     <div>
-      <h1 className="m-4">Checkout</h1>
+      <h1 className="m-4 p-4">Checkout</h1>
       <CheckoutForm onCheckout={handleCheckout} />
     </div>
   );

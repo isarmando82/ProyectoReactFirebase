@@ -8,17 +8,31 @@ export const ItemDetailContainer = () => {
   const { itemId } = useParams();
 
   useEffect(() => {
-    const firestore = getFirestore();
-    const queryCollection = collection(firestore, "productos");
-    const queryDoc = doc(queryCollection, itemId);
+    const fetchData = async () => {
+      try {
+        const firestore = getFirestore();
+        const queryCollection = collection(firestore, "productos");
+        const queryDoc = doc(queryCollection, itemId);
 
-    getDoc(queryDoc)
-      .then(res => setData({ id: res.id, ...res.data() }))
-      .catch(error => console.log(error));
+        const docSnapshot = await getDoc(queryDoc);
+        if (docSnapshot.exists()) {
+          const itemData = docSnapshot.data();
+          setData({ id: docSnapshot.id, ...itemData });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   }, [itemId]);
 
+  if (!data) {
+    return null; // Devuelve null mientras los datos se están cargando
+  }
+
   return <ItemDetail data={data} />;
-}
+};
 
 export default ItemDetailContainer;
 

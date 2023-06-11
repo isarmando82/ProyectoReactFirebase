@@ -9,7 +9,6 @@ import { CartContext } from "../../Context/CartContext";
 const CheckoutPage = () => {
   const navigate = useNavigate();
 
-  // Obtén la función clearCart del contexto
   const { clearCart } = useContext(CartContext);
 
   const handleCheckout = async (order) => {
@@ -22,7 +21,7 @@ const CheckoutPage = () => {
         title: "¡Compra realizada con éxito!",
         text: `Su número de orden es: ${docRef.id}`,
       }).then(() => {
-        // Limpia el carrito después de completar la compra
+  
         clearCart();
         navigate("/");
       });

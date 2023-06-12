@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
-const CheckoutForm = ({ onCheckout }) => {
+const CheckoutForm = ({ onCheckout, cart }) => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -17,14 +19,30 @@ const CheckoutForm = ({ onCheckout }) => {
     setEmail(e.target.value);
   };
 
+  const handleConfirmEmailChange = (e) => {
+    setConfirmEmail(e.target.value);
+  };
+
   const handleCheckout = () => {
-    
+    if (email !== confirmEmail) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Los correos electrónicos no coinciden',
+      });
+      return;
+    }
 
     const order = {
       name,
       phoneNumber,
       email,
-
+      products: cart.map((item) => ({
+        id: item.id,
+        title: item.title,
+        quantity: item.quantity,
+      })),
+      timestamp: new Date().toISOString(), 
     };
 
     onCheckout(order);
@@ -44,6 +62,10 @@ const CheckoutForm = ({ onCheckout }) => {
         <div>
           <label className='m-3' >Correo Electronico:</label>
           <input type="email" value={email} required onChange={handleEmailChange} />
+        </div>
+        <div>
+          <label className='m-3' >Confirmar Correo Electronico:</label>
+          <input type="email" value={confirmEmail} required onChange={handleConfirmEmailChange} />
         </div>
         <button type="button" className='m-4 p-3 rounded' onClick={handleCheckout}>Realizar Compra</button>
       </form>

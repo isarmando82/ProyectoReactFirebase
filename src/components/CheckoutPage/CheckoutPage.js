@@ -8,20 +8,21 @@ import { CartContext } from "../../Context/CartContext";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-
-  const { clearCart } = useContext(CartContext);
+  const { clearCart, cart } = useContext(CartContext);
 
   const handleCheckout = async (order) => {
     try {
+      const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+      const orderWithPrice = { ...order, totalPrice };
+
       const ordersCollection = collection(db, "orders");
-      const docRef = await addDoc(ordersCollection, order);
+      const docRef = await addDoc(ordersCollection, orderWithPrice);
 
       Swal.fire({
         icon: "success",
         title: "¡Compra realizada con éxito!",
         text: `Su número de orden es: ${docRef.id}`,
       }).then(() => {
-  
         clearCart();
         navigate("/");
       });
@@ -33,7 +34,7 @@ const CheckoutPage = () => {
   return (
     <div>
       <h1 className="m-4 p-4">Checkout</h1>
-      <CheckoutForm onCheckout={handleCheckout} />
+      <CheckoutForm onCheckout={handleCheckout} cart={cart} />
     </div>
   );
 };

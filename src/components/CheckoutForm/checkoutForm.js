@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CheckoutForm = ({ onCheckout, cart }) => {
   const [name, setName] = useState('');
@@ -33,6 +35,12 @@ const CheckoutForm = ({ onCheckout, cart }) => {
       return;
     }
 
+    // Validar campos requeridos
+    if (!name || !phoneNumber || !email || !confirmEmail) {
+      toast.error('Por favor, completa todos los campos requeridos');
+      return;
+    }
+
     const order = {
       name,
       phoneNumber,
@@ -42,7 +50,7 @@ const CheckoutForm = ({ onCheckout, cart }) => {
         title: item.title,
         quantity: item.quantity,
       })),
-      timestamp: new Date().toISOString(), 
+      timestamp: new Date().toISOString(),
     };
 
     onCheckout(order);
@@ -50,24 +58,27 @@ const CheckoutForm = ({ onCheckout, cart }) => {
 
   return (
     <div>
+      <ToastContainer />
       <form className='m-4'>
         <div>
           <label className='m-3'>Nombre y Apellido:</label>
-          <input required type="text" value={name} onChange={handleNameChange}  />
+          <input required type="text" value={name} onChange={handleNameChange} />
         </div>
         <div>
           <label className='m-3'>Numero de Celular:</label>
           <input type="numbers" value={phoneNumber} required onChange={handlePhoneNumberChange} />
         </div>
         <div>
-          <label className='m-3' >Correo Electronico:</label>
+          <label className='m-3'>Correo Electronico:</label>
           <input type="email" value={email} required onChange={handleEmailChange} />
         </div>
         <div>
-          <label className='m-3' >Confirmar Correo Electronico:</label>
+          <label className='m-3'>Confirmar Correo Electronico:</label>
           <input type="email" value={confirmEmail} required onChange={handleConfirmEmailChange} />
         </div>
-        <button type="button" className='m-4 p-3 rounded' onClick={handleCheckout}>Realizar Compra</button>
+        <button type="button" className='m-4 p-3 rounded' onClick={handleCheckout}>
+          Realizar Compra
+        </button>
       </form>
     </div>
   );
